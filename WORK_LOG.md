@@ -1,9 +1,9 @@
 Name: YOUR NAME HERE
 
-| Date    |  Time  |                                     Update |
-|:--------|:------:|-------------------------------------------:|
-| April 5 | 9-10pm | I tried to write abstract, efficient code. |
-|         |        |                                            |
+| Date        |   Time    |                                                                                                                                                                                                                                                                                                                                                            Update |
+|:------------|:---------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| November 18 | 0115-0145 | The pattern I detected is that there are usually long strings of either 1 or 0. I am using a byte code which stores in the first bit what to write and in the next 7 bits how many times to write it. In order to detect change I have two booleans to keep track of what the streak is of and the current bit. I am aso making sure I dont go over the bit limit |
+|             |           |                                                                                                                                                                                                                                                                                                                                                                   |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.

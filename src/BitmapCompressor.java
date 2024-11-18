@@ -17,13 +17,13 @@
  ******************************************************************************/
 
 /**
- *  The {@code BitmapCompressor} class provides static methods for compressing
- *  and expanding a binary bitmap input.
+ * The {@code BitmapCompressor} class provides static methods for compressing
+ * and expanding a binary bitmap input.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
- *  @author Zach Blick
- *  @author YOUR NAME HERE
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
+ * @author Zach Blick
+ * @author Noah Persily
  */
 public class BitmapCompressor {
 
@@ -33,7 +33,30 @@ public class BitmapCompressor {
      */
     public static void compress() {
 
-        // TODO: complete compress()
+        int count = 1;
+        boolean current = BinaryStdIn.readBoolean();
+        boolean next = current;
+
+        int i = 0;
+
+        byte temp = 0;
+        while (!BinaryStdIn.isEmpty()) {
+            while ((next == current) && count < 127) {
+                count++;
+                next = BinaryStdIn.readBoolean();
+            }
+            if(current) {
+                i = 1;
+            } else {
+                i = 0;
+            }
+            temp = (byte) (i << 7);
+            temp += count;
+            BinaryStdOut.write(temp);
+            current = next;
+
+        }
+
 
         BinaryStdOut.close();
     }
@@ -44,7 +67,14 @@ public class BitmapCompressor {
      */
     public static void expand() {
 
-        // TODO: complete expand()
+       while (!BinaryStdIn.isEmpty()) {
+           byte b = BinaryStdIn.readByte();
+           int length = ((int) b % 7);
+           int type = (int) b / (1 << 7);
+           for (int i = 0; i < length; i++) {
+               BinaryStdOut.write(,1);
+           }
+       }
 
         BinaryStdOut.close();
     }
@@ -56,7 +86,7 @@ public class BitmapCompressor {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        if      (args[0].equals("-")) compress();
+        if (args[0].equals("-")) compress();
         else if (args[0].equals("+")) expand();
         else throw new IllegalArgumentException("Illegal command line argument");
     }
