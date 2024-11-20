@@ -33,24 +33,21 @@ public class BitmapCompressor {
      */
     public static void compress() {
 
-        int count = 1;
-        boolean current = BinaryStdIn.readBoolean();
-        boolean next = current;
 
-        int i = 0;
+        int count = 1;
+        int current = BinaryStdIn.readInt(1);
+        int next = current;
+
 
         byte temp = 0;
+        System.out.println("banana");
         while (!BinaryStdIn.isEmpty()) {
             while ((next == current) && count < 127) {
                 count++;
-                next = BinaryStdIn.readBoolean();
+                next = BinaryStdIn.readInt(1);
             }
-            if(current) {
-                i = 1;
-            } else {
-                i = 0;
-            }
-            temp = (byte) (i << 7);
+
+            temp = (byte) (current << 7);
             temp += count;
             BinaryStdOut.write(temp);
             current = next;
@@ -67,14 +64,14 @@ public class BitmapCompressor {
      */
     public static void expand() {
 
-       while (!BinaryStdIn.isEmpty()) {
-           byte b = BinaryStdIn.readByte();
-           int length = ((int) b % 7);
-           int type = (int) b / (1 << 7);
-           for (int i = 0; i < length; i++) {
-               BinaryStdOut.write(,1);
-           }
-       }
+        while (!BinaryStdIn.isEmpty()) {
+            int type = BinaryStdIn.readInt(1);
+            int length = BinaryStdIn.readInt(7);
+
+            for (int i = 0; i < length; i++) {
+                BinaryStdOut.write(type, 1);
+            }
+        }
 
         BinaryStdOut.close();
     }
@@ -86,8 +83,22 @@ public class BitmapCompressor {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        if (args[0].equals("-")) compress();
-        else if (args[0].equals("+")) expand();
-        else throw new IllegalArgumentException("Illegal command line argument");
+        System.out.println("hello");
+
+        for (int i = 0; i < 45; i++) {
+            System.out.println("hi ");
+        }
+
+        if (args[0].equals("-")) {
+            compress();
+            System.out.println("kevin");
+        } else if (args[0].equals("+")) {
+            expand();
+            System.out.println("bob");
+        } else {
+            System.out.println("stuart");
+            throw new IllegalArgumentException("Illegal command line argument");
+
+        }
     }
 }
