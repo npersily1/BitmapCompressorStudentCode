@@ -85,7 +85,7 @@ public class BitmapCompressor {
     public static void main(String[] args) {
         System.out.println("hello");
 
-        for (int i = 0; i < 45; i++) {
+        for (int i = 0; i < 2; i++) {
             System.out.println("hi ");
         }
 
