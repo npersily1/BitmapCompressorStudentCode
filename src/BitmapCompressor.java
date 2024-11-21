@@ -34,28 +34,30 @@ public class BitmapCompressor {
     public static void compress() {
 
 
-        int count = 1;
-        int current = BinaryStdIn.readInt(1);
-        int next = current;
+        int numRepeated = 0;
+        int character = BinaryStdIn.readInt(1);
 
 
-        byte temp = 0;
-        System.out.println("banana");
         while (!BinaryStdIn.isEmpty()) {
-            while ((next == current) && count < 127) {
-                count++;
-                next = BinaryStdIn.readInt(1);
+            int next = BinaryStdIn.readInt(1);
+            if (next == character) {
+                if (numRepeated == 127) {
+                    BinaryStdOut.write(character, 1);
+                    BinaryStdOut.write(numRepeated,7);
+                    numRepeated = 0;
+                }
+                numRepeated++;
+            } else {
+                BinaryStdOut.write(character, 1);
+                BinaryStdOut.write(numRepeated,7);
+                numRepeated = 1;
+                character = next;
             }
-
-            temp = (byte) (current << 7);
-            temp += count;
-            BinaryStdOut.write(temp);
-            current = next;
 
         }
 
-
         BinaryStdOut.close();
+
     }
 
     /**
@@ -83,20 +85,16 @@ public class BitmapCompressor {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        System.out.println("hello");
 
-        for (int i = 0; i < 2; i++) {
-            System.out.println("hi ");
-        }
 
         if (args[0].equals("-")) {
             compress();
-            System.out.println("kevin");
+
         } else if (args[0].equals("+")) {
             expand();
-            System.out.println("bob");
+
         } else {
-            System.out.println("stuart");
+
             throw new IllegalArgumentException("Illegal command line argument");
 
         }
