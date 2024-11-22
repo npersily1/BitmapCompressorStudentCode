@@ -55,7 +55,8 @@ public class BitmapCompressor {
             }
 
         }
-
+        BinaryStdOut.write(character,1);
+        BinaryStdOut.write(numRepeated,7);
         BinaryStdOut.close();
 
     }
