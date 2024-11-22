@@ -33,30 +33,33 @@ public class BitmapCompressor {
      */
     public static void compress() {
 
-
+        // Initialize counter and assume the first letter is a zero
         int numRepeated = 0;
-        int character = BinaryStdIn.readInt(1);
+        int character = 0;
 
-
+        // While there is still stuff to read
         while (!BinaryStdIn.isEmpty()) {
+            // Read the next letter
             int next = BinaryStdIn.readInt(1);
+            // If the streak continues
             if (next == character) {
-                if (numRepeated == 127) {
-                    BinaryStdOut.write(character, 1);
-                    BinaryStdOut.write(numRepeated,7);
+                // If you have gone over the bit limit
+                if (numRepeated == 255) {
+                    // Write  255 and then 0 and then reset count
+                    BinaryStdOut.write(numRepeated, 8);
+                    BinaryStdOut.write(0, 8);
                     numRepeated = 0;
                 }
                 numRepeated++;
             } else {
-                BinaryStdOut.write(character, 1);
-                BinaryStdOut.write(numRepeated,7);
+                // If the streak is over write the streak reset the count to one and change the character
+                BinaryStdOut.write(numRepeated, 8);
                 numRepeated = 1;
                 character = next;
             }
 
         }
-        BinaryStdOut.write(character,1);
-        BinaryStdOut.write(numRepeated,7);
+        BinaryStdOut.write(numRepeated, 8);
         BinaryStdOut.close();
 
     }
@@ -67,13 +70,18 @@ public class BitmapCompressor {
      */
     public static void expand() {
 
+        int[] types = {0, 1};
+        int count = 0;
+        // While their stuff to read
         while (!BinaryStdIn.isEmpty()) {
-            int type = BinaryStdIn.readInt(1);
-            int length = BinaryStdIn.readInt(7);
-
+            // Read the length
+            int length = BinaryStdIn.readInt(8);
+            // For the length write the current type
             for (int i = 0; i < length; i++) {
-                BinaryStdOut.write(type, 1);
+                BinaryStdOut.write(types[count % 2], 1);
             }
+            // Change the type
+            count++;
         }
 
         BinaryStdOut.close();
